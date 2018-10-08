@@ -1,6 +1,10 @@
 package com.xinling.test.mathsGame;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * Hello world!
@@ -8,11 +12,16 @@ import java.util.ArrayList;
  */
 public class FunGame 
 {
+	protected Logger logger = LogManager.getLogger(this.getClass());
+	
     public static void main( String[] args )
     {
         FunGame funGame= new FunGame();
         ArrayList<String> hundredResult=funGame.gameHundred();
         funGame.listShow(hundredResult);
+        if(isInteger("1a")){
+        	 System.out.println("hahahaha");
+    	}
         
 //       System.out.println("\n**************\n"+funGame.fizzBuzz(-90));
     }
@@ -26,19 +35,30 @@ public class FunGame
     
     //Game function to return result within 1~100
     public ArrayList<String> gameHundred(){
-    	return gameResult(1,100);
+    	return gameResult("1","100");
     }
     
+    
+    
     //Game function to return result in (start ~ end)
-    public ArrayList<String> gameResult(int start, int end){
+    public ArrayList<String> gameResult(String start, String end){
+    	logger.info("Start is "+start+", end is "+end+".");
     	ArrayList<String> resultList = new ArrayList<String>();
+    	int begin, ended;
+    	if(!isInteger(start) || !isInteger(end)){
+    		resultList.add("please ensure your input is valid.");
+    		return resultList;
+    	}else{
+    		begin= Integer.parseInt(start);
+    		ended= Integer.parseInt(end);
+    	}
     	
     	//Data scope should be valid
-    	if(start>=end){
+    	if(Integer.parseInt(start) >= Integer.parseInt(end)){
     		resultList.add("please ensure startNumber should be smaller than endNumber.");
     	}else{
     		//
-    		for (int i =start; i<=end; i++)
+    		for (int i =begin; i<=ended; i++)
         	{
         		resultList.add(fizzBuzz(i));
         	}
@@ -96,18 +116,14 @@ public class FunGame
     	return strTarget.contains(strSource);
     }
     
-//    //Get every place of a number
-//    public ArrayList<String> intChangeToStringArray(int target){
-//    	String strTarget = target+"";
-//    	String itemOfTarget="";
-//    	ArrayList<String> targetArray=new ArrayList<String>();
-//    	
-//    	for(int i = 1; i<=strTarget.length(); i++){
-//    		itemOfTarget = strTarget.substring(i-1, i);
-//    		targetArray.add(itemOfTarget);
-//    	}
-//    	
-//    	return targetArray;
-//    }
+    /* 
+     * 判断是否为整数  
+     * @param str 传入的字符串  
+     * @return 是整数返回true,否则返回false  
+   */  
+    public static boolean isInteger(String str) {    
+       Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");    
+       return pattern.matcher(str).matches();    
+     }  
     
 }

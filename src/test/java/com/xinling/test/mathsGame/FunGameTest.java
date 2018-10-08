@@ -47,7 +47,7 @@ public class FunGameTest extends BaseTest{
   public void funGame_FizzBuzz_StartEndReverse(){
 	  logger.info("Reverse Scope of start ~ end data verfication!");
 	  ArrayList<String> realResultList= new ArrayList<String>();
-	  realResultList = funGameTest.gameResult(100,1);
+	  realResultList = funGameTest.gameResult("100","1");
 	  String expectedResult = "please ensure startNumber should be smaller than endNumber.";
 	  
 	  Assert.assertEquals(realResultList.get(0), expectedResult,"Real result is not same with expected result!");  
@@ -61,7 +61,7 @@ public class FunGameTest extends BaseTest{
   public void funGame_FizzBuzz_StartEndScopeNull(){
 	  logger.info("Null Scope of start ~ end data verfication!");
 	  ArrayList<String> realResultList= new ArrayList<String>();
-	  realResultList = funGameTest.gameResult(1,1);
+	  realResultList = funGameTest.gameResult("1","1");
 	  String expectedResult = "please ensure startNumber should be smaller than endNumber.";
 	  
 	  Assert.assertEquals(realResultList.get(0), expectedResult,"Real result is not same with expected result!");  
@@ -71,10 +71,14 @@ public class FunGameTest extends BaseTest{
   /*
    * 4. verify output msg correction with special char.
    */
-  @Test(enabled=false)
+  @Test(enabled=true)
   public void funGame_FizzBuzz_SpecialCharacter(){
 	  logger.info("Special character data verification!");
+	  ArrayList<String> realResultList= new ArrayList<String>();
+	  realResultList = funGameTest.gameResult("a","c");
+	  String expectedResult = "please ensure your input is valid.";
 	  
+	  Assert.assertEquals(realResultList.get(0), expectedResult,"Real result is not same with expected result!");
 	  logger.info("verification done!\t Passed!");
   }
   
